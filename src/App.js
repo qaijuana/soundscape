@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     const fetchSamples = async () => {
       const res = await fetch(
-        url.base + url.textSearch + "?query=" + "&token=" + process.env.REACT_APP_FREESOUND_KEY
+        url.base + url.textSearch + "?query=&token=" + process.env.REACT_APP_FREESOUND_KEY
       );
       const data = await res.json();
       setAPI(data.results)
