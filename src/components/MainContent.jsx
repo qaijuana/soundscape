@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Newsfeed from './Newsfeed'
 import TopCharts from "./TopCharts"
 import BrowseSamples from "./BrowseSamples"
@@ -6,7 +7,46 @@ import {
     Box, Container, Grid, Toolbar
 } from '@mui/material'
 
+const host = 'freesound.org';
+const sound_id = "" //! UseState
+const username = "" //! UseState
+const pack_id = ""  //! UseState
+const url = {
+  base: `https://${host}/apiv2`,
+  token: "&token=",
+  //! SEARCH
+  textSearch: '/search/text/',
+  textQuery: "?query=",
+  contentSearch: '/search/content/',
+  combinedSearch: '/sounds/search/combined/',
+  //! SORT TEXT SEARCH
+  sort: "/sort=",
+  defaultTextSearch: "score",
+  mostRated: "rating_desc",
+  leastReated: "rating_asc",
+  mostDownload: "downloads_desc",
+  leastDownload: "downloads_asc",
+  newestAdd: "created_desc",
+  oldestAdd: "created_asc",
+  longestDuration: "duration_desc",
+  shortestDuration: "duration_asc",
+  //! SOUND INSTANCES
+  sound: `/sounds/${sound_id}/`,
+  soundAnalysis: `/sounds/${sound_id}/analysis/`,
+  similarSounds: `/sounds/${sound_id}/similar/`,
+  me: '/me/',
+  user: `/users/${username}/`,
+  userSounds: `/users/${username}/sounds/`,
+  userPacks: `/users/${username}/packs/`,
+  packSounds: `/packs/${pack_id}/sounds/`,
+  pack: `/packs/${pack_id}/`,
+
+};
+
 function MainContent(props) {
+
+    
+  
     return (
         <Box
             component="main"
@@ -25,11 +65,11 @@ function MainContent(props) {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
 
-                    <Newsfeed />
+                    {/* <Newsfeed url={url} /> */}
 
-                    <TopCharts />
+                    {/* <TopCharts url={url} /> */}
 
-                    <BrowseSamples data={props.data} />
+                    <BrowseSamples url={url} />
 
                 </Grid>
 

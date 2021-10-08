@@ -18,7 +18,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MainContent from "./MainContent"
 import { mainListItems, secondaryListItems } from './listItems';
 import SearchBar from "./SearchBar"
-import Volume from "./Volume"
+import MediaPlayer from "./MediaPlayer"
 
 
 
@@ -114,7 +114,7 @@ function Dashboard(props) {
               Sound Scape
             </Typography>
 
-            <Volume />
+            <MediaPlayer />
 
             <IconButton color="inherit">
               <SearchBar />
