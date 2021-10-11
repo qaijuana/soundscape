@@ -24,27 +24,8 @@ function handleClick(event) {
 
 function BrowseSamples(props) {
 
-  const [api, setAPI] = useState([])
-  const [status, setStatus] = useState("idle")
-  const URL = props.url
-  const results = api.results
 
-  useEffect(() => {
-    setStatus("pending");
-    const fetchSamples = async () => {
-      try {
-        const res = await fetch(
-          URL.base + URL.textSearch + URL.textQuery + URL.token + process.env.REACT_APP_FREESOUND_KEY
-        );
-        const data = await res.json();
-        setStatus("resolved");
-        setAPI(data);
-      } catch (error) {
-        setStatus("error")
-      }
-    };
-    fetchSamples();
-  }, [])
+
 
 
 
@@ -63,7 +44,7 @@ function BrowseSamples(props) {
           </TableHead>
 
           <TableBody >
-            {status === "resolved" ? (results?.map((row) => (
+            {props.status === "resolved" ? (props.results?.map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.username}</TableCell>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 //! MUI MATERIAL
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -75,6 +75,7 @@ function Dashboard(props) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const [searchValue, setSearchValue] = useState("")
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -118,8 +119,8 @@ function Dashboard(props) {
 
             <IconButton color="inherit">
 
-              <SearchBar/>
-              
+              <SearchBar search={setSearchValue} />
+
             </IconButton>
 
           </Toolbar>
@@ -150,8 +151,8 @@ function Dashboard(props) {
         {/* ////
         //! Body
         //// */}
-        
-        <MainContent data={props.data} />
+
+        <MainContent search={searchValue} />
 
 
       </Box>

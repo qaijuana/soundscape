@@ -47,19 +47,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchBar(props) {
   const searchInput = useRef();
-  const [inputValue, setInputValue] = useState("")
+  const [searchValue, setSearchValue] = useState("")
   
 
   const handleSubmit = (e) => {
     const result = searchInput.current.value
     e.preventDefault();
-    setInputValue("");
+    props.search(searchValue, result);
+    setSearchValue("");
 
   } 
 
   const handleChange = (e) => {
     const result = searchInput.current.value
-    setInputValue(result)
+    setSearchValue(result)
   }
 
   return (
@@ -75,7 +76,7 @@ function SearchBar(props) {
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleChange}
             inputRef={searchInput}
-            value={inputValue}
+            value={searchValue}
             
             
             />
