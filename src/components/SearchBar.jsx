@@ -70,7 +70,7 @@ function SearchBar() {
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleChange}
-            inputRef={searchInput}
+            ref={searchInput}
             />
         </form>
       </Search>
