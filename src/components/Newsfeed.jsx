@@ -13,7 +13,7 @@ function Newsfeed() {
                     height: 240,
                 }}
             >
-                Sup lil bitch
+                news
             </Paper>
         </Grid>
     )

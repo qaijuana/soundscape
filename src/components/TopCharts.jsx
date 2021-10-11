@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Paper } from "@mui/material"
+import CircularProgress from "./CircularProgress"
 
 function TopCharts(props) {
     const [api, setAPI] = useState([])
+    const [status, setStatus] = useState("idle")
+    const URL = props.url
+    const results = api.results
 
     useEffect(() => {
+        setStatus("pending");
         const fetchSamples = async () => {
-            const res = await fetch(
-                props.url.base + props.url.textSearch + props.url.textQuery + props.url.token + process.env.REACT_APP_FREESOUND_KEY
-            );
-            const data = await res.json();
-            setAPI(data.results)
-        }
+            try {
+                const res = await fetch(
+                    URL.base + URL.textSearch + URL.textQuery + URL.token + process.env.REACT_APP_FREESOUND_KEY
+                );
+                const data = await res.json();
+                setStatus("resolved");
+                setAPI(data);
+            } catch (error) {
+                setStatus("error")
+            }
+        };
         fetchSamples();
     }, [])
 
@@ -25,7 +35,8 @@ function TopCharts(props) {
                     height: 240,
                 }}
             >
-                {api}
+                {status === "resolved" ? (results?.map((e) => (e.name))) : <CircularProgress justifyContent="center" /> }
+
             </Paper>
         </Grid>
 
