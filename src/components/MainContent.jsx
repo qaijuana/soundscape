@@ -44,22 +44,22 @@ const url = {
 };
 
 function MainContent(props) {
-
+    const theSearch = props.search;
+    console.log("maincontent", theSearch)
+    // const [searchValue, setSearchValue] = useState("")
+    const urlLink = url.base + url.textSearch + url.textQuery + theSearch + url.token
     const [api, setAPI] = useState([])
     const [status, setStatus] = useState("idle")
     const results = api.results
-    // const [searchValue, setSearchValue] = useState("")
-    const theSearch = props.search;
-
+    console.log("URL", urlLink)
 
     useEffect(() => {
+
         setStatus("pending");
         const fetchSamples = async () => {
             try {
                 const res = await fetch(
-                    url.base + url.textSearch + url.textQuery + { theSearch } + 
-                    
-                    url.token + process.env.REACT_APP_FREESOUND_KEY
+                    urlLink + process.env.REACT_APP_FREESOUND_KEY
                 );
                 const data = await res.json();
                 setStatus("resolved");
@@ -72,7 +72,7 @@ function MainContent(props) {
     }, [theSearch])
 
 
-    
+
 
 
 

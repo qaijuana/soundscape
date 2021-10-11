@@ -53,7 +53,8 @@ function SearchBar(props) {
   const handleSubmit = (e) => {
     const result = searchInput.current.value
     e.preventDefault();
-    props.search(searchValue, result);
+    setSearchValue(result)
+    props.search(result);
     setSearchValue("");
 
   } 

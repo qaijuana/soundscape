@@ -76,7 +76,7 @@ function Dashboard(props) {
     setOpen(!open);
   };
   const [searchValue, setSearchValue] = useState("")
-
+  console.log("dashboard", searchValue)
   return (
     <ThemeProvider theme={mdTheme}>
 
