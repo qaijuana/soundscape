@@ -117,7 +117,9 @@ function Dashboard(props) {
             <MediaPlayer />
 
             <IconButton color="inherit">
-              <SearchBar />
+
+              <SearchBar/>
+              
             </IconButton>
 
           </Toolbar>
@@ -125,7 +127,7 @@ function Dashboard(props) {
 
         {/* //! SIDE NAV */}
 
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open}>´
           <Toolbar
             sx={{
               display: 'flex',
@@ -145,8 +147,10 @@ function Dashboard(props) {
           <List>{secondaryListItems}</List>
         </Drawer>
 
-        {/* //! Body Content */}
-
+        {/* ////
+        //! Body
+        //// */}
+        
         <MainContent data={props.data} />
 
 

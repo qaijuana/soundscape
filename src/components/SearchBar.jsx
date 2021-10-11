@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -46,18 +46,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar() {
-  return (
+  const searchInput = useRef();
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("search", searchInput);
+    console.log ("current", searchInput.current);
+  } 
 
+  const handleChange = (e) => {
+
+  }
+
+  return (
+    
     <>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <form onSubmit={handleSubmit}>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+            onChange={handleChange}
+            inputRef={searchInput}
             />
-          </Search>
+        </form>
+      </Search>
     </>
   );
 }

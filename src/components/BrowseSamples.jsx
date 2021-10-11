@@ -61,6 +61,7 @@ function BrowseSamples(props) {
               <TableCell>License</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody >
             {status === "resolved" ? (results?.map((row) => (
               <TableRow key={row.id}>
@@ -69,7 +70,8 @@ function BrowseSamples(props) {
                 <TableCell>{row.tags.join(", ")}</TableCell>
                 <TableCell align="right">{row.license}</TableCell>
               </TableRow>
-            ))) : <CircularProgress justifyContent="center"/> } 
+            ))) :
+              <CircularProgress justifyContent="center" />}
           </TableBody>
         </Table>
 
