@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Newsfeed from './Newsfeed'
-import TopCharts from "./TopCharts"
+// import Newsfeed from './Newsfeed'
+// import TopCharts from "./TopCharts"
 import BrowseSamples from "./BrowseSamples"
 import Copyright from "./Copyright"
 import {
