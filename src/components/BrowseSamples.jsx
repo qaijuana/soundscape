@@ -25,9 +25,9 @@ function BrowseSamples(props) {
   const prevPage = props.api?.previous
   const nextPage = props.api?.next
 
-  const handleClick = (e) => {
-    console.log("Clicked Row", e)
-  }
+  // const handleClick = (e) => {
+  //   console.log("Clicked Row", e)
+  // }
 
   const handleID = (e) => {
     props.nowPlaying(e);
