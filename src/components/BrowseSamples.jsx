@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Grid,
   Paper,
@@ -14,9 +14,7 @@ import Title from "./Title"
 import CircularProgress from "./CircularProgress"
 
 
-function handleClick(event) {
-  event.preventDefault();
-}
+
 
 //! add use state for sort to enable sort by "TABLEHEAD"
 //! onClick Row to grab "ID" to fetch :Sound Instances: and setNowPlaying to audition

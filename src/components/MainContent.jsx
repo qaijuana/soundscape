@@ -94,9 +94,9 @@ function MainContent(props) {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
 
-                    {/* <Newsfeed url={url} /> */}
+                    <Newsfeed url={url} />
 
-                    {/* <TopCharts url={url} /> */}
+                    <TopCharts url={url} />
 
                     <BrowseSamples
                         status={status}

@@ -76,6 +76,7 @@ function Dashboard(props) {
     setOpen(!open);
   };
   const [searchValue, setSearchValue] = useState("")
+  const [nowPlaying, setNowPlaying] = useState("")
   console.log("dashboard", searchValue)
   return (
     <ThemeProvider theme={mdTheme}>
@@ -152,7 +153,10 @@ function Dashboard(props) {
         //! Body
         //// */}
 
-        <MainContent search={searchValue} />
+        <MainContent 
+          search={searchValue} 
+          nowPlaying={setNowPlaying}
+        />
 
 
       </Box>
