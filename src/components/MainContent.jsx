@@ -54,7 +54,7 @@ function MainContent(props) {
 
     useEffect(() => {
         setURL(urlLink)
-    }, [theSearch])
+    }, [urlLink])
 
     useEffect(() => {
 
