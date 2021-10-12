@@ -24,7 +24,9 @@ function handleClick(event) {
 
 function BrowseSamples(props) {
 
-
+  const handleClick = (e) => {
+    console.log("Clicked Row", e)
+  }
 
 
 
@@ -45,7 +47,7 @@ function BrowseSamples(props) {
 
           <TableBody >
             {props.status === "resolved" ? (props.results?.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow onClick={handleClick} key={row.id}>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.username}</TableCell>
                 <TableCell>{row.tags.join(", ")}</TableCell>
