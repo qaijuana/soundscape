@@ -21,55 +21,73 @@ import CircularProgress from "./CircularProgress"
 //! onClick EACH tags for "FILTER"
 
 function BrowseSamples(props) {
+  const results = props.api?.results
+  const prevPage = props.api?.previous
+  const nextPage = props.api?.next
 
   const handleClick = (e) => {
     console.log("Clicked Row", e)
   }
 
+  const handleID = (e) => {
+    props.nowPlaying(e);
+    console.log("ID", e)
+  }
+
+
+  const SampleList = (e) => {
+    return (
+      <TableBody >
+        {results?.map((row) => (
+            <TableRow onClick={() => handleID(row.id)} key={row.id}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.username}</TableCell>
+              <TableCell>{row.tags.join(", ")}</TableCell>
+              <TableCell align="right">{row.license}</TableCell>
+            </TableRow>
+
+    ))}
+      </TableBody>
+    )
+  }
 
 
 
   return (
     <Grid item xs={12}>
-      <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-        <Title>New Sounds</Title>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Contributor</TableCell>
-              <TableCell>Tags</TableCell>
-              <TableCell>License</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody >
-            {props.status === "resolved" ? (props.results?.map((row) => (
-              <TableRow onClick={handleClick} key={row.id}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.username}</TableCell>
-                <TableCell>{row.tags.join(", ")}</TableCell>
-                <TableCell align="right">{row.license}</TableCell>
+    {props.status === "resolved" ? (
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Title>New Sounds</Title>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Contributor</TableCell>
+                <TableCell>Tags</TableCell>
+                <TableCell>License</TableCell>
               </TableRow>
-            ))) :
-              <CircularProgress justifyContent="center" />}
-          </TableBody>
-        </Table>
+            </TableHead>
 
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-        >
-          <Link align="left" color="primary" href="#" onClick={handleClick} sx={{ mt: 3 }}>
-            Previous
-          </Link>
-          <Link align="right" color="primary" href="#" onClick={handleClick} sx={{ mt: 3 }}>
-            Next
-          </Link>
-        </Stack>
 
-      </Paper>
-    </Grid>
+            <SampleList />
+
+          </Table>
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+          >
+            <Link align="left" color="primary" href="#" onClick={() => { console.log("prev"); props.urlMod(prevPage) }} sx={{ mt: 3 }}>
+              Previous
+            </Link>
+            <Link align="right" color="primary" href="#" onClick={() => { console.log("next"); props.urlMod(nextPage) }} sx={{ mt: 3 }}>
+              Next
+            </Link>
+          </Stack>
+
+        </Paper>
+        ) : <CircularProgress justifyContent="center" />}
+        </Grid>
   )
 }
 

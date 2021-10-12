@@ -6,12 +6,13 @@ import Copyright from "./Copyright"
 import {
     Box, Container, Grid, Toolbar
 } from '@mui/material'
+import MediaControlCard from "./MediaCard"
 
 const host = 'freesound.org';
 const sound_id = "" //! UseState
 const username = "" //! UseState
 const pack_id = ""  //! UseState
-const url = {
+const uri = {
     base: `https://${host}/apiv2`,
     token: "&token=",
     //! SEARCH
@@ -23,7 +24,7 @@ const url = {
     sort: "/sort=",
     defaultTextSearch: "score",
     mostRated: "rating_desc",
-    leastReated: "rating_asc",
+    leastRated: "rating_asc",
     mostDownload: "downloads_desc",
     leastDownload: "downloads_asc",
     newestAdd: "created_desc",
@@ -45,13 +46,11 @@ const url = {
 
 function MainContent(props) {
     const theSearch = props.search;
-    console.log("maincontent", theSearch)
-    // const [searchValue, setSearchValue] = useState("")
-    const urlLink = url.base + url.textSearch + url.textQuery + theSearch + url.token
+    const urlLink = uri.base + uri.textSearch + uri.textQuery + theSearch 
+    const [url, setURL] = useState(urlLink)
     const [api, setAPI] = useState([])
     const [status, setStatus] = useState("idle")
-    const results = api.results
-    console.log("URL", urlLink)
+    console.log("URL", url)
 
     useEffect(() => {
 
@@ -59,7 +58,7 @@ function MainContent(props) {
         const fetchSamples = async () => {
             try {
                 const res = await fetch(
-                    urlLink + process.env.REACT_APP_FREESOUND_KEY
+                    url + uri.token + process.env.REACT_APP_FREESOUND_KEY
                 );
                 const data = await res.json();
                 setStatus("resolved");
@@ -69,7 +68,7 @@ function MainContent(props) {
             }
         };
         fetchSamples();
-    }, [theSearch])
+    }, [url, theSearch])
 
 
 
@@ -94,16 +93,19 @@ function MainContent(props) {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
 
-                    <Newsfeed url={url} />
+                    {/* <Newsfeed url={uri} /> */}
 
-                    <TopCharts url={url} />
+                    {/* <TopCharts url={uri} /> */}
 
                     <BrowseSamples
                         status={status}
-                        results={results}
+                        api={api}
+                        urlMod={setURL}
+                        nowPlaying={props.nowPlaying}
 
                     />
 
+                    <MediaControlCard/>
                 </Grid>
 
                 <Copyright sx={{ pt: 4 }} />
