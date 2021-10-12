@@ -46,11 +46,15 @@ const uri = {
 
 function MainContent(props) {
     const theSearch = props.search;
-    const urlLink = uri.base + uri.textSearch + uri.textQuery + theSearch 
+    const urlLink = uri.base + uri.textSearch + uri.textQuery + theSearch; 
     const [url, setURL] = useState(urlLink)
     const [api, setAPI] = useState([])
     const [status, setStatus] = useState("idle")
     console.log("URL", url)
+
+    useEffect(() => {
+        setURL(urlLink)
+    }, [theSearch])
 
     useEffect(() => {
 
