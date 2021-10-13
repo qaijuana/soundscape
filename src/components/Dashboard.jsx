@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MainContent from "./MainContent"
 import { mainListItems, secondaryListItems } from './listItems';
 import SearchBar from "./SearchBar"
-import MediaPlayer from "./MediaPlayer"
+// import MediaPlayer from "./MediaPlayer"
 
 
 
