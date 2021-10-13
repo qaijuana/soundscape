@@ -7,7 +7,7 @@ import Copyright from "./Copyright"
 import {
     Box, Container, Grid, Toolbar
 } from '@mui/material'
-import MediaControlCard from "./MediaCard"
+// import MediaControlCard from "./MediaCard"
 
 
 function MainContent(props) {
@@ -25,6 +25,8 @@ function MainContent(props) {
         textQuery: "?query=",
         contentSearch: '/search/content/',
         combinedSearch: '/sounds/search/combined/',
+
+        filter: "&filter=",
         //! SORT TEXT SEARCH
         sort: "/sort=",
         defaultTextSearch: "score",
@@ -114,6 +116,7 @@ function MainContent(props) {
 
                     <Route path="/browse">
                         <BrowseSamples
+                            uri={uri}
                             status={status}
                             api={api}
                             setUrl={setUrl}

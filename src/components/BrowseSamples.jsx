@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from "react-router-dom"
 import {
   Grid,
@@ -28,23 +28,33 @@ function BrowseSamples(props) {
   const searchResult = props.searchResult
   const setUrl = props.setUrl
   const url = props.url;
+  const uri = props.uri;
   const [tags, setTags] = useState([])
 
   const handleID = (e) => {
     props.setSound_id(e);
   }
 
-  useEffect(() => { }, [tags])
+
 
   const handleTag = (e) => {
     const tagValue = e.target.innerText;
-    tags.push(tagValue);
-    setTags(tags);
-    console.log("tag", tags)
+    if (tags.includes(tagValue) === false) {
+      tags.push(tagValue);
+      setTags(tags);
+      setUrl(url + uri.filter + (tags.map((newTag) => {
+        return ("tag:" + newTag + " ")
+      })).join(""))
+    }
   }
 
   const removeTag = (e) => {
-    console.log("remove tag", e.target.innerText)
+    const result = tags.filter(event => event !== e.target.innerText)
+    setTags(result)
+    setUrl(url + uri.filter + (tags.map((newTag) => {
+      return ("tag:" + newTag + " ")
+    })).join(""))
+
   }
 
   const SampleList = (e) => {
@@ -67,18 +77,20 @@ function BrowseSamples(props) {
     )
   }
 
+
   const SelectTags = (e) => {
     return (
       <TableCell>
-        {tags.map((event) => {
+        {tags.map((event, i) => {
           return (
-            <button key={event} onClick={removeTag}>{event}</button>
+            <button key={i} onClick={removeTag}>{event}</button>
           )
         })}
       </TableCell>
 
     )
   }
+
 
 
 
@@ -96,7 +108,7 @@ function BrowseSamples(props) {
             <TableHead>
               <TableRow>
                 <TableCell>Artist</TableCell>
-                <TableCell>Name</TableCell>
+                <TableCell>Title</TableCell>
                 <TableCell>Tags</TableCell>
                 <TableCell>License</TableCell>
               </TableRow>
@@ -111,11 +123,11 @@ function BrowseSamples(props) {
             direction="row"
             justifyContent="space-between"
           >
-            <Link align="left" color="primary" component={RouterLink} to="/browse" onClick={() => { console.log("prev"); setUrl(prevPage) }} sx={{ mt: 3 }}>
+            <Link align="left" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(prevPage) }} sx={{ mt: 3 }}>
               {prevPage !== null ? "Previous" : ""}
 
             </Link>
-            <Link align="right" color="primary" component={RouterLink} to="/browse" onClick={() => { console.log("next"); setUrl(nextPage) }} sx={{ mt: 3 }}>
+            <Link align="right" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(nextPage) }} sx={{ mt: 3 }}>
               {nextPage !== null ? "Next" : ""}
             </Link>
           </Stack>
