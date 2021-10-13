@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -48,11 +49,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function SearchBar(props) {
   const searchInput = useRef();
   const [searchValue, setSearchValue] = useState("")
+  const history = useHistory();
   
 
   const handleSubmit = (e) => {
     const result = searchInput.current.value
     e.preventDefault();
+    history.push("/browse")
     setSearchValue(result)
     props.search(result);
     setSearchValue("");

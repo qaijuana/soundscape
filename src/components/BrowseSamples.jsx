@@ -30,8 +30,7 @@ function BrowseSamples(props) {
   // }
 
   const handleID = (e) => {
-    props.nowPlaying(e);
-    console.log("ID", e)
+    props.setSound_id(e);
   }
 
 

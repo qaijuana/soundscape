@@ -18,6 +18,7 @@ function MediaPlayer() {
 
   const PlayCircle = <PlayCircleIcon/>
   return (
+    
     <Box sx={{ width: 200 }}>
       <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="left">
         {PlayCircle}

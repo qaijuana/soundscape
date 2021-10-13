@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 //! MUI MATERIAL
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -75,9 +76,11 @@ function Dashboard(props) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  //! DASHBOARD BRAINS 
   const [searchValue, setSearchValue] = useState("")
-  const [nowPlaying, setNowPlaying] = useState("")
-  console.log("nowPlaying", nowPlaying)
+  const [sound_id, setSound_id] = useState("")
+
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -107,17 +110,25 @@ function Dashboard(props) {
 
             </IconButton>
 
+
             <Typography
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{
+                flexGrow: 1,
+                decoration: "none",
+                color: "white"
+              }}
             >
-              Sound Scape
+              <Link to="/">
+                Sound Scape
+              </Link>
             </Typography>
 
-            <MediaPlayer />
+
+            {/* <MediaPlayer /> */}
 
             <IconButton color="inherit">
 
@@ -156,7 +167,8 @@ function Dashboard(props) {
 
         <MainContent
           search={searchValue}
-          nowPlaying={setNowPlaying}
+          sound_id={sound_id}
+          setSound_id={setSound_id}
         />
 
 

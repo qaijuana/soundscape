@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import Newsfeed from './Newsfeed'
-// import TopCharts from "./TopCharts"
+import { Route, Redirect } from "react-router-dom"
+import Newsfeed from './Newsfeed'
+import TopCharts from "./TopCharts"
 import BrowseSamples from "./BrowseSamples"
 import Copyright from "./Copyright"
 import {
@@ -8,53 +9,56 @@ import {
 } from '@mui/material'
 import MediaControlCard from "./MediaCard"
 
-const host = 'freesound.org';
-const sound_id = "" //! UseState
-const username = "" //! UseState
-const pack_id = ""  //! UseState
-const uri = {
-    base: `https://${host}/apiv2`,
-    token: "&token=",
-    //! SEARCH
-    textSearch: '/search/text/',
-    textQuery: "?query=",
-    contentSearch: '/search/content/',
-    combinedSearch: '/sounds/search/combined/',
-    //! SORT TEXT SEARCH
-    sort: "/sort=",
-    defaultTextSearch: "score",
-    mostRated: "rating_desc",
-    leastRated: "rating_asc",
-    mostDownload: "downloads_desc",
-    leastDownload: "downloads_asc",
-    newestAdd: "created_desc",
-    oldestAdd: "created_asc",
-    longestDuration: "duration_desc",
-    shortestDuration: "duration_asc",
-    //! SOUND INSTANCES
-    sound: `/sounds/${sound_id}/`,
-    soundAnalysis: `/sounds/${sound_id}/analysis/`,
-    similarSounds: `/sounds/${sound_id}/similar/`,
-    me: '/me/',
-    user: `/users/${username}/`,
-    userSounds: `/users/${username}/sounds/`,
-    userPacks: `/users/${username}/packs/`,
-    packSounds: `/packs/${pack_id}/sounds/`,
-    pack: `/packs/${pack_id}/`,
-
-};
 
 function MainContent(props) {
+
+    const host = 'freesound.org';
+    const sound_id = props.sound_id;
+    const setSound_id = props.setSound_id;
+    const username = props.username;
+    const pack_id = props.pack_id;
+    const uri = {
+        base: `https://${host}/apiv2`,
+        token: "&token=",
+        //! SEARCH
+        textSearch: '/search/text/',
+        textQuery: "?query=",
+        contentSearch: '/search/content/',
+        combinedSearch: '/sounds/search/combined/',
+        //! SORT TEXT SEARCH
+        sort: "/sort=",
+        defaultTextSearch: "score",
+        mostRated: "rating_desc",
+        leastRated: "rating_asc",
+        mostDownload: "downloads_desc",
+        leastDownload: "downloads_asc",
+        newestAdd: "created_desc",
+        oldestAdd: "created_asc",
+        longestDuration: "duration_desc",
+        shortestDuration: "duration_asc",
+        //! SOUND INSTANCES
+        sound: `/sounds/${sound_id}/`,
+        soundAnalysis: `/sounds/${sound_id}/analysis/`,
+        similarSounds: `/sounds/${sound_id}/similar/`,
+        me: '/me/',
+        user: `/users/${username}/`,
+        userSounds: `/users/${username}/sounds/`,
+        userPacks: `/users/${username}/packs/`,
+        packSounds: `/packs/${pack_id}/sounds/`,
+        pack: `/packs/${pack_id}/`,
+
+    };
+
     const theSearch = props.search;
-    const urlLink = uri.base + uri.textSearch + uri.textQuery + theSearch; 
-    const [url, setURL] = useState(urlLink)
+    const defaultUrl = uri.base + uri.textSearch + uri.textQuery + theSearch;
+    const [url, setURL] = useState(defaultUrl)
     const [api, setAPI] = useState([])
     const [status, setStatus] = useState("idle")
-    console.log("URL", url)
+
 
     useEffect(() => {
-        setURL(urlLink)
-    }, [urlLink])
+        setURL(defaultUrl)
+    }, [defaultUrl])
 
     useEffect(() => {
 
@@ -72,7 +76,7 @@ function MainContent(props) {
             }
         };
         fetchSamples();
-    }, [url, theSearch])
+    }, [url, defaultUrl, uri.token])
 
 
 
@@ -97,19 +101,37 @@ function MainContent(props) {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
 
-                    {/* <Newsfeed url={uri} /> */}
+                    <Route exact path="/">
+                        <Newsfeed url={uri} />
 
-                    {/* <TopCharts url={uri} /> */}
+                        <TopCharts url={uri} />
+                    </Route>
 
-                    <BrowseSamples
-                        status={status}
-                        api={api}
-                        urlMod={setURL}
-                        nowPlaying={props.nowPlaying}
+                    {/* <MediaControlCard 
+                        uri={uri}
+                        sound_id={sound_id}
+                    /> */}
 
-                    />
+                    <Route path="/browse">
+                        <BrowseSamples
+                            status={status}
+                            api={api}
+                            urlMod={setURL}
+                            setSound_id={setSound_id}
+                        />
+                    </Route>
 
-                    <MediaControlCard/>
+                    <Route path="/catagories">
+                        <Newsfeed url={uri} />
+                        <BrowseSamples
+                            status={status}
+                            api={api}
+                            urlMod={setURL}
+                            setSound_id={setSound_id}
+                        />
+                    </Route>
+                    <Redirect to="/" />
+
                 </Grid>
 
                 <Copyright sx={{ pt: 4 }} />
