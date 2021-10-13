@@ -78,7 +78,7 @@ function Dashboard(props) {
   };
 
   //! DASHBOARD BRAINS 
-  const [searchValue, setSearchValue] = useState("")
+  const [searchResult, setSearchResult] = useState("")
   const [sound_id, setSound_id] = useState("")
 
 
@@ -123,7 +123,7 @@ function Dashboard(props) {
               }}
             >
               <Link to="/">
-                Sound Scape
+                Selection
               </Link>
             </Typography>
 
@@ -132,7 +132,7 @@ function Dashboard(props) {
 
             <IconButton color="inherit">
 
-              <SearchBar search={setSearchValue} />
+              <SearchBar search={setSearchResult} />
 
             </IconButton>
 
@@ -166,7 +166,7 @@ function Dashboard(props) {
         //// */}
 
         <MainContent
-          search={searchValue}
+          searchResult={searchResult}
           sound_id={sound_id}
           setSound_id={setSound_id}
         />

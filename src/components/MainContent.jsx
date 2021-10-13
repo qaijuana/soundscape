@@ -49,15 +49,15 @@ function MainContent(props) {
 
     };
 
-    const theSearch = props.search;
-    const defaultUrl = uri.base + uri.textSearch + uri.textQuery + theSearch;
-    const [url, setURL] = useState(defaultUrl)
+    const searchResult = props.searchResult;
+    const defaultUrl = uri.base + uri.textSearch + uri.textQuery + searchResult;
+    const [url, setUrl] = useState(defaultUrl)
     const [api, setAPI] = useState([])
     const [status, setStatus] = useState("idle")
 
 
     useEffect(() => {
-        setURL(defaultUrl)
+        setUrl(defaultUrl)
     }, [defaultUrl])
 
     useEffect(() => {
@@ -116,8 +116,10 @@ function MainContent(props) {
                         <BrowseSamples
                             status={status}
                             api={api}
-                            urlMod={setURL}
+                            setUrl={setUrl}
+                            url={url}
                             setSound_id={setSound_id}
+                            searchResult={searchResult}
                         />
                     </Route>
 
@@ -126,11 +128,12 @@ function MainContent(props) {
                         <BrowseSamples
                             status={status}
                             api={api}
-                            urlMod={setURL}
+                            setUrl={setUrl}
                             setSound_id={setSound_id}
+                            searchResult={searchResult}
                         />
                     </Route>
-                    <Redirect to="/" />
+                    <Redirect to="/browse" />
 
                 </Grid>
 
