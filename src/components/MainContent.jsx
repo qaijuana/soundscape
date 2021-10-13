@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Redirect } from "react-router-dom"
 import Newsfeed from './Newsfeed'
-import TopCharts from "./TopCharts"
+// import TopCharts from "./TopCharts"
 import BrowseSamples from "./BrowseSamples"
 import Copyright from "./Copyright"
 import {
@@ -106,7 +106,7 @@ function MainContent(props) {
                     <Route exact path="/">
                         <Newsfeed url={uri} />
 
-                        <TopCharts url={uri} />
+                        {/* <TopCharts url={uri} /> */}
                     </Route>
 
                     {/* <MediaControlCard 
