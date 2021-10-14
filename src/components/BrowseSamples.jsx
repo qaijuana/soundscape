@@ -55,7 +55,7 @@ function BrowseSamples(props) {
     if (tags.length > 0) {
       tagNoRefresh();
     }
-  }, [tags])
+  }, [tags, url, uri.filter, setUrl])
 
 
   const handleTag = (e) => {
