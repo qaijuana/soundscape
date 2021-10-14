@@ -12,7 +12,11 @@ import {
   Stack,
   Button,
   Box,
-  Divider
+  Divider,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel
 } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import Title from "./Title"
@@ -20,6 +24,8 @@ import Title from "./Title"
 import LinearProgress from '@mui/material/LinearProgress'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ClearIcon from '@mui/icons-material/Clear';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 
 
@@ -39,11 +45,12 @@ function BrowseSamples(props) {
   const uri = props.uri;
   const defaultUrl = props.defaultUrl
   const [tags, setTags] = useState([])
+  const [sorting, setSorting] = useState("")
+  const [sortDirection, setSortDirection] = useState(false)
 
   const handleID = (e) => {
     props.setSound_id(e);
   }
-
 
   //! Keeps Tags in place while content searching
   useEffect(() => {
@@ -65,8 +72,8 @@ function BrowseSamples(props) {
       tags.push(tagValue);
       setTags(tags);
       setUrl(url + uri.filter + (tags.map((newTag) => {
-        return ("tag:" + newTag + " ")
-      })).join(""))
+        return ("tag:" + newTag)
+      })).join(" "))
     } else if (tags.length === 0) {
       setUrl(defaultUrl)
     }
@@ -81,6 +88,32 @@ function BrowseSamples(props) {
     setUrl(url + uri.filter + (tags.map((newTag) => {
       return ("tag:" + newTag + " ")
     })).join(""))
+  }
+
+  const handleSort = (e) => {
+    const sortValue = e.target.value
+    setSorting(sortValue)
+    if (sortDirection === false) {
+      if (sortValue === 0) {
+        setUrl(url + uri.sort + uri.defaultTextSearch)
+      } else if (sortValue === 10) {
+        setUrl(url + uri.sort + uri.mostDownload)
+      } else if (sortValue === 20) {
+        setUrl(url + uri.sort + uri.newestAdd)
+      } else if (sortValue === 30) {
+        setUrl(url + uri.sort + uri.mostRated)
+      }
+    }else if (sortDirection === true) {
+      if (sortValue === 0) {
+        setUrl(url + uri.sort + uri.defaultTextSearch)
+      } else if (sortValue === 10) {
+        setUrl(url + uri.sort + uri.leastDownload)
+      } else if (sortValue === 20) {
+        setUrl(url + uri.sort + uri.oldestAdd)
+      } else if (sortValue === 30) {
+        setUrl(url + uri.sort + uri.leastRated)
+      }
+    }
   }
 
   const SampleList = (e) => {
@@ -133,7 +166,7 @@ function BrowseSamples(props) {
 
   const SelectTags = (e) => {
     return (
-      <TableCell>
+      <TableCell alight="left">
         {tags.map((event, i) => {
           return (
             <Button
@@ -152,6 +185,59 @@ function BrowseSamples(props) {
     )
   }
 
+  const SortList = (e) => {
+    return (
+      <Box sx={{ minWidth: 120 }}>
+        <Stack
+          direction="row"
+        >
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+            {sortDirection ?
+              <Select
+                value={sorting}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="sort"
+                onChange={handleSort}
+              >
+                <MenuItem value={0}>Relevance</MenuItem>
+                <MenuItem value={10}>Least Download</MenuItem>
+                <MenuItem value={20}>Oldest</MenuItem>
+                <MenuItem value={30}>Not Popular Yet</MenuItem>
+              </Select>
+              :
+              <Select
+                value={sorting}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="sort"
+                onChange={handleSort}
+              >
+                <MenuItem value={0}>Relevance</MenuItem>
+                <MenuItem value={10}>Most Download</MenuItem>
+                <MenuItem value={20}>Newest</MenuItem>
+                <MenuItem value={30}>Popular</MenuItem>
+              </Select>
+            }
+          </FormControl>
+
+          {sortDirection ?
+            <ArrowCircleDownIcon
+              hover="true" fontSize="large" sx={{ my: "auto" }}
+              onClick={(e) => { 
+                setSortDirection(!sortDirection);
+               }} /> :
+            <ArrowCircleUpIcon
+              hover="true" fontSize="large" sx={{ my: "auto" }}
+              onClick={(e) => { 
+                setSortDirection(!sortDirection); 
+                }} />}
+
+        </Stack>
+      </Box>
+    )
+  }
   return (
 
     <Grid item xs={12}>
@@ -159,6 +245,7 @@ function BrowseSamples(props) {
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <Stack
             direction="row"
+            sx={{ justifyContent: "space-between" }}
           >
             {searchResult === "" ?
               <Button onClick={() => { setSearchResult("") }} >
@@ -179,6 +266,10 @@ function BrowseSamples(props) {
             <SelectTags />
 
             {tags.length === 0 ? "" : <Divider orientation="vertical" flexItem />}
+
+
+            <SortList />
+
 
 
 
@@ -204,13 +295,17 @@ function BrowseSamples(props) {
             justifyContent="space-between"
           >
             <Button>
-              <Link align="left" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(prevPage) }} sx={{ mt: 3 }}>
+              <Link
+                align="left" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(prevPage) }} sx={{ mt: 3 }}
+              >
                 {prevPage !== null ? "Previous" : ""}
               </Link>
             </Button>
 
             <Button>
-              <Link align="right" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(nextPage) }} sx={{ mt: 3 }}>
+              <Link
+                align="right" color="primary" component={RouterLink} to="/browse" onClick={() => { setUrl(nextPage) }} sx={{ mt: 3 }}
+              >
                 {nextPage !== null ? "Next" : ""}
               </Link>
             </Button>
