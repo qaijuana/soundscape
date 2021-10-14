@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import { Button } from '@mui/material/';
 //! MUI ICON MATERIAL
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -111,21 +112,32 @@ function Dashboard(props) {
             </IconButton>
 
 
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
+            <Link
               sx={{
                 flexGrow: 1,
                 decoration: "none",
                 color: "white"
-              }}
-            >
-              <Link to="/">
-                Selection
-              </Link>
-            </Typography>
+              }} to="/">
+              <Button noWrap
+                sx={{
+                  flexGrow: 1,
+                  color: "inherit"
+                }} size="large">
+                <Typography
+                  component="h1"
+                  variant="h6"
+                  color="white"
+                  noWrap
+                  sx={{
+                    flexGrow: 1,
+                    decoration: "none",
+                    color: "white"
+                  }}
+                >
+                  Selection
+                </Typography>
+              </Button>
+            </Link>
 
 
             {/* <MediaPlayer /> */}
@@ -167,6 +179,7 @@ function Dashboard(props) {
 
         <MainContent
           searchResult={searchResult}
+          setSearchResult={setSearchResult}
           sound_id={sound_id}
           setSound_id={setSound_id}
         />

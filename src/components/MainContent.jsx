@@ -52,6 +52,7 @@ function MainContent(props) {
     };
 
     const searchResult = props.searchResult;
+    const setSearchResult = props.setSearchResult
     const defaultUrl = uri.base + uri.textSearch + uri.textQuery + searchResult;
     const [url, setUrl] = useState(defaultUrl)
     const [api, setAPI] = useState([])
@@ -121,19 +122,25 @@ function MainContent(props) {
                             api={api}
                             setUrl={setUrl}
                             url={url}
+                            defaultUrl={defaultUrl}
                             setSound_id={setSound_id}
                             searchResult={searchResult}
+                            setSearchResult={setSearchResult}
                         />
                     </Route>
 
                     <Route path="/catagories">
                         <Newsfeed url={uri} />
                         <BrowseSamples
+                            uri={uri}
                             status={status}
                             api={api}
                             setUrl={setUrl}
+                            url={url}
+                            defaultUrl={defaultUrl}
                             setSound_id={setSound_id}
                             searchResult={searchResult}
+                            setSearchResult={setSearchResult}
                         />
                     </Route>
                     <Redirect to="/browse" />

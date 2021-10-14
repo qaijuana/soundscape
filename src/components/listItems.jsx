@@ -8,6 +8,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export const mainListItems = (
   <div>
@@ -16,19 +17,19 @@ export const mainListItems = (
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Browse" />
+          <ListItemText primary="Home" />
         </ListItem>
       <ListItem button component={Link} to="/catagories">
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Catagories" />
+      <ListItemText primary="Browse" />
       </ListItem>
       <ListItem button component={Link} to="/share">
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Refer to a Friend" />
+        <ListItemText primary="Share" />
       </ListItem>
 
   </div>
@@ -39,7 +40,7 @@ export const secondaryListItems = (
     <ListSubheader inset>Favourites</ListSubheader>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AddBoxIcon />
       </ListItemIcon>
       <ListItemText primary="Create New List" />
     </ListItem>
